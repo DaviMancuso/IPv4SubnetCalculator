@@ -5,11 +5,30 @@ import Model.SubnetInfo;
 public class SubnetCalculator {
     public SubnetInfo calcular(String entrada) {
 
-        //METHOD
+        String[] partes = entrada.split("/", -1);
 
-        String[] partes = entrada.split("/");
+        // VALIDATION IP/CIDR
+
+        if (partes.length != 2) {
+            throw new IllegalArgumentException("Formato esperado: IP/CDIR");
+        }
+
+        // VALIDATION EMPTY FIELD
+
+        if (partes[0].isBlank() || partes[1].isBlank()) {
+            throw new IllegalArgumentException("IP e CDIR devem ser informados!");
+        }
+
         String ip = partes[0];
-        int cidr = Integer.parseInt(partes[1]);
+        int cidr;
+
+        // VALIDATION CIDR
+
+        try {
+            cidr = Integer.parseInt(partes[1]);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("CIDR inválido!");
+        }
 
         // VALIDATION IP
 
@@ -17,19 +36,41 @@ public class SubnetCalculator {
             throw new IllegalArgumentException("IP inválido!");
         }
 
+        // CALCULATE HOST
+
         long hosts = calcularHost(cidr);
         long ipLong = ipParaLong(ip);
 
-        // CALCULATE HOST
-
         SubnetInfo info = new SubnetInfo();
-
         info.setQuantidadeHost(hosts);
+
+        // MASK
+
+        long mascara = calcularMascara(cidr) & 0xFFFFFFFFL;
+        String mascsaraIp = longParaIp(mascara);
+
+        long rede = calcularRede(ipLong,mascara);
+        info.setRede(longParaIp(rede));
+
+
+        //BROADCAST
+
+        long broadcast   = calcularBroadcast(rede,mascara);
+        info.setBroadcast(longParaIp(broadcast));
+
+        // PRIMARY AND LAST HOST
+
+        long primeiroHost = calcularPrimeiroHost(rede,cidr);
+        long ultimoHost = calcularUltimoHost(broadcast,cidr);
+
+        info.setPrimeiroHost(longParaIp(primeiroHost));
+        info.setUltimoHost(longParaIp(ultimoHost));
         return info;
+
 
     }
 
-    // VALIDATION METHOD
+    // VALIDATION IP
 
     private boolean validarIp(String ip) {
 
@@ -65,7 +106,7 @@ public class SubnetCalculator {
         return (1L << (32 - cidr)) - 2;
     }
 
-    // CONVERT IP TO LONG
+    // CONVERT IP TO LONG OR LONG TO IP
 
     private long ipParaLong(String ip) {
 
@@ -84,5 +125,46 @@ public class SubnetCalculator {
                 ((valor >> 16) & 255) + "." +
                 ((valor >> 8) & 255) + "." +
                 (valor & 255);
+    }
+
+    // CREATE MASK TO IP
+
+    private long calcularMascara(int cidr) {
+        return (-1L <<(32 - cidr));
+    }
+
+    // CALCULATE NETWORK
+
+    private long calcularRede(long ipLong, long mascara) {
+        return ipLong & mascara;
+    }
+
+    // CALCULATE BROADCAST
+
+    private long calcularBroadcast(long rede, long mascara) {
+        long mascaraInvertida = (~mascara) & 0xFFFFFFFFL;
+        return rede | mascaraInvertida;
+    }
+
+    // CALCULATE PRIMARY HOST
+
+    private long calcularPrimeiroHost(long rede, int cidr) {
+
+        if (cidr == 31 || cidr == 32) {
+            return rede;
+        }
+        return rede + 1;
+
+    }
+
+    // CALCULATE PRIMARY HOST
+
+    private long calcularUltimoHost(long broadcast, int cidr) {
+
+        if (cidr == 31 || cidr == 32) {
+            return broadcast;
+        }
+
+        return broadcast -1;
     }
 }
