@@ -56,9 +56,6 @@ Durante o desenvolvimento foram utilizados conceitos como:
 
 - Conversão de IPv4 para Long
 - Conversão de Long para IPv4
-- Operador AND (`&`)
-- Operador OR (`|`)
-- Operador NOT (`~`)
 - Deslocamento de Bits (`<<` e `>>`)
 - Validação de dados de entrada
 - Encapsulamento
