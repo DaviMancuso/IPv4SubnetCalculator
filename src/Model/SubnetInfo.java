@@ -1,7 +1,7 @@
 package Model;
 
 public class SubnetInfo {
-    // VARIABLES
+
     private String rede;
     private String broadcast;
     private String primeiroHost;

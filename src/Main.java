@@ -9,4 +9,5 @@ void main() {
     System.out.println("Primeiro Host: " + info.getPrimeiroHost());
     System.out.println("Último Host: " + info.getUltimoHost());
     System.out.println("Hosts: " + info.getQuantidadeHost());
+
 }
