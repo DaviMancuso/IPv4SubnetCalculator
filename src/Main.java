@@ -12,5 +12,6 @@ void main() {
     System.out.println("Tipo de rede: " + info.getTipoRede());
     System.out.println("Binário (rede): " + info.getBinarioRede());
     System.out.println("Mascara Wildcard: " + info.getWildCard());
+    System.out.println("Mascara de Rede " + info.getMascara());
 
 }

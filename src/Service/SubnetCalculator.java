@@ -48,6 +48,7 @@ public class SubnetCalculator {
 
         long mascara = calcularMascara(cidr) & 0xFFFFFFFFL;
         String mascsaraIp = longParaIp(mascara);
+        info.setMascara(longParaIp(mascara));
 
         // CALCULATE NETWORK        *** ENV ***
 
@@ -222,7 +223,6 @@ public class SubnetCalculator {
     }
 
     // CALCULATE MASK WILDCARD
-
 
     private long calcularWildcard(long mascara) {
         return  (~mascara) & 0xFFFFFFFFL;

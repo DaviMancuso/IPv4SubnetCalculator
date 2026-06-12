@@ -10,6 +10,7 @@ public class SubnetInfo {
     private String tipoRede;
     private String binarioRede;
     private String wildCard;
+    private String mascara;
 
     // GETTER AND SETTER
 
@@ -75,5 +76,13 @@ public class SubnetInfo {
 
     public void setWildCard(String wildCard) {
         this.wildCard = wildCard;
+    }
+
+    public String getMascara() {
+        return mascara;
+    }
+
+    public void setMascara(String mascara) {
+        this.mascara = mascara;
     }
 }
