@@ -67,10 +67,18 @@ public class SubnetCalculator {
         info.setPrimeiroHost(longParaIp(primeiroHost));
         info.setUltimoHost(longParaIp(ultimoHost));
 
-        // TYPE NETWORK
+        // TYPE NETWORK              *** ENV ***
 
         String tipoRede = identificarTipodeRede(ip);
         info.setTipoRede(tipoRede);
+
+        // LONG TO BINARY            *** ENV ***
+
+
+        long redeBinary = calcularRede(ipLong,mascara);
+        info.setRede(longParaIp(redeBinary));
+        info.setBinarioRede(longParaBinario(redeBinary));
+
 
         return info;
 
@@ -197,6 +205,15 @@ public class SubnetCalculator {
         }
 
         return "Pública";
+    }
+
+    // CALCULATE NETWORK TO BINARY
+
+    private String longParaBinario(long valor) {
+        return String.format("%8s", Long.toBinaryString((valor >> 24) & 255)).replace(' ', '0') + "." +
+                String.format("%8s", Long.toBinaryString((valor >> 16) & 255)).replace(' ', '0') + "." +
+                String.format("%8s", Long.toBinaryString((valor >> 8) & 255)).replace(' ', '0') + "." +
+                String.format("%8s", Long.toBinaryString(valor & 255)).replace(' ', '0');
     }
 
 }

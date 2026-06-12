@@ -10,5 +10,6 @@ void main() {
     System.out.println("Último Host: " + info.getUltimoHost());
     System.out.println("Hosts: " + info.getQuantidadeHost());
     System.out.println("Tipo de rede: " + info.getTipoRede());
+    System.out.println("Binário (rede): " + info.getBinarioRede());
 
 }

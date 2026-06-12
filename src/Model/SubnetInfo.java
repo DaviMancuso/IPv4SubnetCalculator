@@ -8,6 +8,7 @@ public class SubnetInfo {
     private String ultimoHost;
     private long quantidadeHost;
     private String tipoRede;
+    private String binarioRede;
 
     // GETTER AND SETTER
 
@@ -57,5 +58,13 @@ public class SubnetInfo {
 
     public void setTipoRede(String tipoRede) {
         this.tipoRede = tipoRede;
+    }
+
+    public String getBinarioRede() {
+        return binarioRede;
+    }
+
+    public void setBinarioRede(String binarioRede) {
+        this.binarioRede = binarioRede;
     }
 }
