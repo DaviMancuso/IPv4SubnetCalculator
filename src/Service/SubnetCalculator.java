@@ -54,7 +54,6 @@ public class SubnetCalculator {
         long rede = calcularRede(ipLong,mascara);
         info.setRede(longParaIp(rede));
 
-
         //BROADCAST                 *** ENV ***
 
         long broadcast   = calcularBroadcast(rede,mascara);
@@ -67,6 +66,12 @@ public class SubnetCalculator {
 
         info.setPrimeiroHost(longParaIp(primeiroHost));
         info.setUltimoHost(longParaIp(ultimoHost));
+
+        // TYPE NETWORK
+
+        String tipoRede = identificarTipodeRede(ip);
+        info.setTipoRede(tipoRede);
+
         return info;
 
 
@@ -169,4 +174,29 @@ public class SubnetCalculator {
 
         return broadcast -1;
     }
+
+    // CALCULATE IDENTIFY NETWORK ( PRIVATE OR PUBLIC )
+
+    private String identificarTipodeRede(String ip) {
+        String[] octetos = ip.split("\\.");
+
+        int o1 = Integer.parseInt(octetos[0]);
+        int o2 = Integer.parseInt(octetos[1]);
+
+        if (o1 == 10) {
+            return "Privada";
+
+        }
+
+        if (o1 == 172 && o2 >= 16 && o2 <= 31) {
+            return "Privada";
+        }
+
+        if (o1 == 192 && o2 == 168) {
+            return "Privada";
+        }
+
+        return "Pública";
+    }
+
 }
