@@ -79,6 +79,11 @@ public class SubnetCalculator {
         info.setRede(longParaIp(redeBinary));
         info.setBinarioRede(longParaBinario(redeBinary));
 
+        // MASK WILDCARD
+
+        long wildcard = calcularWildcard(mascara);
+        info.setWildCard(longParaIp(wildcard));
+
 
         return info;
 
@@ -214,6 +219,14 @@ public class SubnetCalculator {
                 String.format("%8s", Long.toBinaryString((valor >> 16) & 255)).replace(' ', '0') + "." +
                 String.format("%8s", Long.toBinaryString((valor >> 8) & 255)).replace(' ', '0') + "." +
                 String.format("%8s", Long.toBinaryString(valor & 255)).replace(' ', '0');
+    }
+
+    // CALCULATE MASK WILDCARD
+
+
+    private long calcularWildcard(long mascara) {
+        return  (~mascara) & 0xFFFFFFFFL;
+
     }
 
 }

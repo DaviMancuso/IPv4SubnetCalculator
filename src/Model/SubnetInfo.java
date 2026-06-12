@@ -9,6 +9,7 @@ public class SubnetInfo {
     private long quantidadeHost;
     private String tipoRede;
     private String binarioRede;
+    private String wildCard;
 
     // GETTER AND SETTER
 
@@ -66,5 +67,13 @@ public class SubnetInfo {
 
     public void setBinarioRede(String binarioRede) {
         this.binarioRede = binarioRede;
+    }
+
+    public String getWildCard() {
+        return wildCard;
+    }
+
+    public void setWildCard(String wildCard) {
+        this.wildCard = wildCard;
     }
 }

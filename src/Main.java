@@ -3,7 +3,7 @@ import Service.SubnetCalculator;
 
 void main() {
     SubnetCalculator calculator = new SubnetCalculator();
-    SubnetInfo info = calculator.calcular("9.168.10.1/24");
+    SubnetInfo info = calculator.calcular("192.168.1.50/26");
     System.out.println("Rede: " + info.getRede());
     System.out.println("Broadcast: " + info.getBroadcast());
     System.out.println("Primeiro Host: " + info.getPrimeiroHost());
@@ -11,5 +11,6 @@ void main() {
     System.out.println("Hosts: " + info.getQuantidadeHost());
     System.out.println("Tipo de rede: " + info.getTipoRede());
     System.out.println("Binário (rede): " + info.getBinarioRede());
+    System.out.println("Mascara Wildcard: " + info.getWildCard());
 
 }
